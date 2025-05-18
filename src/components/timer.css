@@ -1,0 +1,102 @@
+body {
+  background-color: rgb(24, 0, 2);
+}
+
+@keyframes fadeIn {
+  from { background-color: #000; }
+  to   { background-color: #f00; }
+}
+
+.Colon {
+  display: inline-block;
+  width: 20px;
+  height: 150px;
+  position: relative;
+}
+
+.Colon:before,
+.Colon:after {
+  content: '';
+  display: block;
+  border-radius: 10px;
+  left: -5px;
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  position: absolute;
+}
+
+.Colon--blink:before,
+.Colon--blink:after {
+  animation: fadeIn 1s ease-in-out infinite;
+}
+
+.Colon:before {
+  top: 30px;
+}
+
+.Colon:after {
+  bottom: 30px;
+}
+
+.Display {
+  position: relative;
+  display: inline-block;
+  margin-right: 18px;
+  width: 80px;
+  height: 150px;
+}
+
+.Segment {
+  position: absolute;
+  border-radius: 10px;
+  background-color: black;
+}
+
+.Segment--on {
+  animation: fadeIn 0.4s ease-in;
+  background-color: red;
+}
+
+.Segment-A,
+.Segment-D,
+.Segment-G {
+  width: 60px;
+  height: 10px;
+  left: 10px;
+}
+
+.Segment-B,
+.Segment-C,
+.Segment-E,
+.Segment-F {
+  width: 10px;
+  height: 60px;
+}
+
+.Segment-B,
+.Segment-F {
+  top: 10px;
+}
+
+.Segment-C,
+.Segment-E {
+  top: 80px;
+}
+
+.Segment-B,
+.Segment-C {
+  left: 70px;
+}
+
+.Segment-A {
+  top: 0px;
+}
+
+.Segment-D {
+  top: 140px;
+}
+
+.Segment-G {
+  top: 70px;
+}

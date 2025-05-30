@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Timer from "@/components/Timer";
 import _ from "lodash";
+import { listen } from "@tauri-apps/api/event";
 
 export default function Home() {
   const [time, setTime] = useState(0);
@@ -28,6 +29,26 @@ export default function Home() {
       }
     }
   }, [running]);
+
+  useEffect(() => {
+
+    const setupListener =  listen('next', (event) => {
+        const eventType = event.payload;
+        if (eventType === 'speak') {
+          speakHandler();
+        } else if (eventType === 'challenge') {
+          challengeHandler();
+        } else if (eventType === 'deffence') {
+          deffenceHandler();
+        } else if (eventType === 'stop') {
+          setCountdown(null);
+          if (timerRef.current) {
+            timerRef.current.stopSound();
+          }
+        }
+      });
+
+  }, []);
 
   const formatTime = (totalSeconds: number) => {
     const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
@@ -83,7 +104,7 @@ export default function Home() {
         {countdown !== null
           ?
           <section>
-            <Timer key={timerKey} value={countdown.toString()} />
+            <Timer key={timerKey} ref={timerRef} value={countdown.toString()} />
           </section>
           : <div className="text-6xl">در انتظار گاد</div>}
       </main>

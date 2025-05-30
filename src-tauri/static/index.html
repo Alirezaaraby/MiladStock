@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mafia Timer Server</title>
+</head>
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        gap: 1rem;
+    }
+
+    @media (min-width: 600px) {
+        .container {
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    }
+</style>
+
+<body style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <div>
+        <p id="status" style="font-size: 2rem; color: red;">Server is running...</p>
+    </div>
+    <div class="container">
+        <button style="background: oklch(0.723 0.219 149.579); color:white; width: 10rem; height: 10rem;"
+            onclick="handleClick('speak')">
+            Next Player
+        </button>
+        <button style="background: oklch(0.623 0.214 259.815);; color: white; width: 10rem; height: 10rem;"
+            onclick="handleClick('deffence')">
+            Deffence
+        </button>
+        <button style="background: oklch(0.606 0.25 292.717);; color:white; width: 10rem; height: 10rem;"
+            onclick="handleClick('challenge')">
+            Challenge
+        </button>
+        <button style="background: oklch(0.637 0.237 25.331); color:white; width: 10rem; height: 10rem;"
+            onclick="handleClick('stop')">
+            Stop
+        </button>
+    </div>
+    <script>
+        function handleClick(method) {
+            fetch(`http://127.0.0.1:4875/api/speak`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `event=${encodeURIComponent(method)}`
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('API Response:', data);
+                    const statusElement = document.getElementById('status');
+                    statusElement.textContent = `API called for: ${method}`;
+                    statusElement.style.color = 'green';
+                })
+                .catch(error => {
+                    console.error('API Error:', error);
+                    const statusElement = document.getElementById('status');
+                    statusElement.textContent = `Error calling API for: ${method}`;
+                    statusElement.style.color = 'red';
+                });
+        }
+    </script>
+</body>
+
+</html>

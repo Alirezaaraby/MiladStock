@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Timer from "@/components/Timer";
+import _ from "lodash";
 
 export default function Home() {
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null); // ✅ Correct type
-
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
-  // Import the type for the Timer component's instance if available, or use 'any' as a fallback
-  const timerRef = useRef<{ stopSound: () => void } | null>(null); // Timer ref
+  const timerRef = useRef<{ stopSound: () => void } | null>(null);
+  const [timerKey, setTimerKey] = useState<string | null>(null);
 
   useEffect(() => {
     if (running) {
@@ -45,13 +45,31 @@ export default function Home() {
   const stopHandler = () => {
     setCountdown(null);
     if (timerRef.current) {
-      timerRef.current.stopSound(); // Stop beep if playing
+      timerRef.current.stopSound();
     }
   };
 
-  const speakHandler = () => setCountdown(60);
-  const challengeHandler = () => setCountdown(30);
-  const deffenceHandler = () => setCountdown(90);
+  const changeHandler = () => {
+    if (timerRef.current) {
+      timerRef.current.stopSound();
+    }
+  }
+
+  const speakHandler = () => {
+    changeHandler();
+    setTimerKey(_.uniqueId('timer_'));
+    setCountdown(60);
+  };
+  const challengeHandler = () => {
+    changeHandler();
+    setTimerKey(_.uniqueId('timer_'));
+    setCountdown(30);
+  }
+  const deffenceHandler = () => {
+    changeHandler();
+    setTimerKey(_.uniqueId('timer_'));
+    setCountdown(90);
+  }
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -63,7 +81,10 @@ export default function Home() {
 
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         {countdown !== null
-          ? <Timer ref={timerRef} value={countdown.toString()} />
+          ?
+          <section>
+            <Timer key={timerKey} value={countdown.toString()} />
+          </section>
           : <div className="text-6xl">در انتظار گاد</div>}
       </main>
 

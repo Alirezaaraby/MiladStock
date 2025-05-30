@@ -1,4 +1,3 @@
-// Timer.tsx
 import React, { useEffect, useImperativeHandle, useState, forwardRef } from "react";
 import "./timer.css";
 import useSound from 'use-sound';
@@ -34,7 +33,6 @@ const Display: React.FC<DisplayProps> = ({ value }) => {
   );
 };
 
-// Wrap with forwardRef
 interface TimerProps {
   value: string;
 }
@@ -70,7 +68,6 @@ const Timer = forwardRef<TimerHandle, TimerProps>(({ value }, ref) => {
     }
   }, [done, play]);
 
-  // Expose stop to parent via ref
   useImperativeHandle(ref, () => ({
     stopSound: () => stop()
   }));

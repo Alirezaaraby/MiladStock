@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mafia Timer Server</title>
 </head>
+
 <style>
     .container {
         display: flex;
@@ -22,22 +23,32 @@
             justify-content: space-around;
         }
     }
+
+    .ip-input {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        padding: 0.5rem;
+        width: 16rem;
+    }
 </style>
 
 <body style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
     <div>
         <p id="status" style="font-size: 2rem; color: red;">Server is running...</p>
     </div>
+
+    <input id="ipInput" class="ip-input" placeholder="Enter Server IP (e.g., 192.168.0.101)" />
+
     <div class="container">
         <button style="background: oklch(0.723 0.219 149.579); color:white; width: 10rem; height: 10rem;"
             onclick="handleClick('speak')">
             Next Player
         </button>
-        <button style="background: oklch(0.623 0.214 259.815);; color: white; width: 10rem; height: 10rem;"
+        <button style="background: oklch(0.623 0.214 259.815); color: white; width: 10rem; height: 10rem;"
             onclick="handleClick('deffence')">
             Deffence
         </button>
-        <button style="background: oklch(0.606 0.25 292.717);; color:white; width: 10rem; height: 10rem;"
+        <button style="background: oklch(0.606 0.25 292.717); color:white; width: 10rem; height: 10rem;"
             onclick="handleClick('challenge')">
             Challenge
         </button>
@@ -46,9 +57,19 @@
             Stop
         </button>
     </div>
+
     <script>
         function handleClick(method) {
-            fetch(`http://127.0.0.1:4875/api/speak`, {
+            const ip = document.getElementById('ipInput').value.trim();
+            const statusElement = document.getElementById('status');
+
+            if (!ip) {
+                statusElement.textContent = "Please enter a valid IP address.";
+                statusElement.style.color = 'red';
+                return;
+            }
+
+            fetch(`http://${ip}:4875/api/speak`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -58,13 +79,11 @@
                 .then(response => response.text())
                 .then(data => {
                     console.log('API Response:', data);
-                    const statusElement = document.getElementById('status');
                     statusElement.textContent = `API called for: ${method}`;
                     statusElement.style.color = 'green';
                 })
                 .catch(error => {
                     console.error('API Error:', error);
-                    const statusElement = document.getElementById('status');
                     statusElement.textContent = `Error calling API for: ${method}`;
                     statusElement.style.color = 'red';
                 });

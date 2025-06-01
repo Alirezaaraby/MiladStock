@@ -32,7 +32,7 @@ pub async fn init(app: AppHandle) -> std::io::Result<()> {
             .service(handlers::timer::handle_get)
             .service(handlers::timer::handle_post)
     })
-    .bind(("127.0.0.1", 4875))?
+    .bind(("0.0.0.0", 4875))?
     .run()
     .await
 }

@@ -81,7 +81,7 @@ const Timer = forwardRef<TimerHandle, TimerProps>(({ value }, ref) => {
         <Display value={tens} />
         <Display value={ones} />
       </div>
-      {done && <div className="text-6xl">تمام :)</div>}
+      {done && <div className="text-white text-6xl">تمام :)</div>}
     </div>
   );
 });

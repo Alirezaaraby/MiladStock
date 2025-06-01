@@ -106,7 +106,7 @@ export default function Home() {
           <section>
             <Timer key={timerKey} ref={timerRef} value={countdown.toString()} />
           </section>
-          : <div className="text-6xl">در انتظار گاد</div>}
+          : <div className="text-white text-6xl">در انتظار گاد</div>}
       </main>
 
       <footer className="row-start-3 flex gap-[24px] flex-col items-center justify-center">

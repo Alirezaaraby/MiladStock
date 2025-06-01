@@ -59,18 +59,23 @@ body {
 }
 
 .Segment-A,
-.Segment-D,
-.Segment-G {
+.Segment-D {
   width: 60px;
-  height: 10px;
-  left: 10px;
+  height: 25px;
+  left: 17px;
+}
+
+.Segment-G {
+  width: 50px;
+  height: 25px;
+  left: 22px;
 }
 
 .Segment-B,
 .Segment-C,
 .Segment-E,
 .Segment-F {
-  width: 10px;
+  width: 25px;
   height: 60px;
 }
 
@@ -90,13 +95,13 @@ body {
 }
 
 .Segment-A {
-  top: 0px;
+  top: -13px;
 }
 
 .Segment-D {
-  top: 140px;
+  top: 138px;
 }
 
 .Segment-G {
-  top: 70px;
+  top: 63px;
 }

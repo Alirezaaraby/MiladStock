@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Timer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "identifier": "com.alirezaarabi.timer",
   "build": {
     "frontendDist": "../out",
@@ -20,7 +20,7 @@
       }
     ],
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; connect-src 'self' http://0.0.0.0:4875; img-src 'self' asset: data:; style-src 'self' 'unsafe-inline';"
     }
   },
   "bundle": {

@@ -77,11 +77,11 @@ const Timer = forwardRef<TimerHandle, TimerProps>(({ value }, ref) => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <div style={{ display: "flex" }}>
-        <Display value={tens} />
+      <div style={{ display: "flex", gap: "20px" }}>
+        <Display value={tens}/>
         <Display value={ones} />
       </div>
-      {done && <div className="text-white text-6xl">تمام :)</div>}
+      {done && <div className="text-white text-6xl mt-6">تمام :)</div>}
     </div>
   );
 });
